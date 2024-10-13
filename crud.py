@@ -6,3 +6,5 @@ def add_book(title, author, isbn, count):
     session.add(book)
     session.commit()
 
+def get_book():
+    return session.query(Book).all()
