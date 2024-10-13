@@ -1,4 +1,4 @@
-from crud import add_book, get_book, add_member, get_member, issue_book, return_book, get_transactions_by_member
+from crud import add_book, get_book, add_member, get_member, issue_book, return_book, get_transactions_by_member, delete_book
 
 def addNewBook():
     title = input("Enter book title: ")
@@ -7,6 +7,10 @@ def addNewBook():
     count = int(input("Enter number of copies: "))
     add_book(title, author, isbn, count)
     print("> New Book added")
+
+def deleteABook():
+    book_id = int(input("Enter Book Id to delete: "))
+    delete_book(book_id)
 
 def printBooks():
     books = get_book()
@@ -57,7 +61,8 @@ def main():
         print("5. Issue Book")
         print("6. Return Book")
         print("7. View Transactions by Member")
-        print("8. Exit")
+        print("8. Delete book in stock")
+        print("9. Exit")
         print("***************************************")
         choice = input("Enter your choice: ")
 
@@ -75,6 +80,8 @@ def main():
             returnABook()
         elif choice == "7":
             getTransactionForMember()
+        elif choice == "8":
+            deleteABook()
         else:
             print("> Exited")
             break
