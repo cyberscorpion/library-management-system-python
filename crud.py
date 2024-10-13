@@ -28,3 +28,17 @@ def issue_book(book_id, member_id):
         print("> Book issued")
     else:
         print("> Book not available for issue")
+
+def return_book(transaction_id):
+    transaction = session.query(Transaction).filter_by(id = transaction_id).first()
+    if transaction and not transaction.return_date:
+        transaction.return_date = date.today()
+        book = session.query(Book).filter_by(id = transaction.book_id).first()
+        book.count += 1
+        session.commit()
+        print("> Book returned to library")
+    else:
+        print("> Book already returned")
+
+def get_transactions_by_member(member_id):
+    return session.query(Transaction).filter_by(member_id = member_id).all()

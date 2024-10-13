@@ -1,4 +1,4 @@
-from crud import add_book, get_book, add_member, get_member, issue_book
+from crud import add_book, get_book, add_member, get_member, issue_book, return_book, get_transactions_by_member
 
 def addNewBook():
     title = input("Enter book title: ")
@@ -35,33 +35,49 @@ def issueABook():
     member_id = int(input("Enter member ID: "))
     issue_book(book_id, member_id)
 
+def returnABook():
+    transaction_id = int(input("Enter a transaction ID: "))
+    return_book(transaction_id)
+
+def getTransactionForMember():
+    member_id = int(input("Enter member ID: "))
+    transactions = get_transactions_by_member(member_id)
+    for transaction in transactions:
+        return_state = "Returns" if transaction.return_date else "Not Returned"
+        print(f"Transaction ID: {transaction.id}, Book ID: {transaction.book_id}, Issue Date: {transaction.issue_date}, Return Date: {transaction.return_date}, Status: {return_state}")
+    
 
 def main():
-    print("***************************************")
-    print("1. Add Book")
-    print("2. View Books")
-    print("3. Add Member")
-    print("4. View Member")
-    print("5. Issue Book")
-    print("6. Return Book")
-    print("7. View Transactions by Member")
-    print("***************************************")
-    choice = input("Enter your choice: ")
+    while True:
+        print("***************************************")
+        print("1. Add Book")
+        print("2. View Books")
+        print("3. Add Member")
+        print("4. View Member")
+        print("5. Issue Book")
+        print("6. Return Book")
+        print("7. View Transactions by Member")
+        print("8. Exit")
+        print("***************************************")
+        choice = input("Enter your choice: ")
 
-    if choice == "1":
-        addNewBook()
-    elif choice == "2":
-        printBooks()
-    elif choice == "3":
-        addNewMember()
-    elif choice == "4":
-        printMembers()
-    elif choice == "5":
-        issueABook()
-    elif choice == "6":
-        pass
-    elif choice == "7":
-        pass
+        if choice == "1":
+            addNewBook()
+        elif choice == "2":
+            printBooks()
+        elif choice == "3":
+            addNewMember()
+        elif choice == "4":
+            printMembers()
+        elif choice == "5":
+            issueABook()
+        elif choice == "6":
+            returnABook()
+        elif choice == "7":
+            getTransactionForMember()
+        else:
+            print("> Exited")
+            break
         
 if __name__ == "__main__":
     main()
